@@ -1,0 +1,8 @@
+Codename: trixie
+Components: main
+Architectures: amd64
+Origin: nginx-quic
+Label: nginx-quic
+Suite: stable
+Version: 1.0
+SignWith: 56B83F59D745DEBCACCB5213C37D943270211A29

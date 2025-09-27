@@ -1,0 +1,6 @@
+Archive: stable
+Version: 1.0
+Component: main
+Origin: nginx-quic
+Label: nginx-quic
+Architecture: amd64

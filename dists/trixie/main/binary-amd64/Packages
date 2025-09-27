@@ -1,0 +1,27 @@
+Package: nginx-quic
+Version: 1.29.1-1
+Architecture: amd64
+Maintainer: K1LLSCRIPT <alex@icona.one>
+Installed-Size: 11639
+Depends: libbrotli1 (>= 0.6.0), libc6 (>= 2.38), libcrypt1 (>= 1:4.1.0), libgd3 (>= 2.1.0~alpha~), libgeoip1t64 (>= 1.6.12), libpcre2-8-0 (>= 10.32), libperl5.40 (>= 5.40.0), libxml2 (>= 2.7.4), libxslt1.1 (>= 1.1.25), zlib1g (>= 1:1.1.4), adduser, lsb-base, systemd
+Conflicts: nginx
+Replaces: nginx
+Homepage: https://nginx.org
+Priority: optional
+Section: httpd
+Filename: pool/main/n/nginx-quic/nginx-quic_1.29.1-1_amd64.deb
+Size: 3703760
+SHA256: 119243d94a704e5978432b4af39bd46297d4fe081f2d393fb1729d6afeb60dea
+SHA1: adba0027a171d5dc029c596428e49c8aa5127a8c
+MD5sum: 750b0d2471d85a61362db86b4cd24fce
+Description: High-performance NGINX with QUIC/HTTP3 and extra modules
+ NGINX built from latest sources with QUIC and HTTP/3 support,
+ packaged as a Debian .deb for easy installation and updates.
+ .
+ Extra modules included:
+  - ngx_brotli (Google Brotli compression)
+  - headers-more (OpenResty headers-more module)
+  - njs (NGINX JavaScript)
+  - zstd (Zstandard compression)
+  - QuickJS runtime
+
