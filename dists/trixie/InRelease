@@ -6,34 +6,34 @@ Label: nginx-quic
 Suite: stable
 Codename: trixie
 Version: 1.0
-Date: Sat, 27 Sep 2025 03:34:30 UTC
+Date: Sat, 27 Sep 2025 16:56:35 UTC
 Architectures: amd64
 Components: main
 MD5Sum:
- 527a40553ae6dbfe256e494bcffc690b 1116 main/binary-amd64/Packages
- db98434b0c2b53bd2063563c513cb082 713 main/binary-amd64/Packages.gz
+ 6e32ef40359acd01aded4d18b0019a93 1116 main/binary-amd64/Packages
+ dc22af401c67262806af6490736da819 712 main/binary-amd64/Packages.gz
  db21dc456bf3a5346d1234db0090037f 102 main/binary-amd64/Release
 SHA1:
- f9d469c0355e70e8fd129deab2dead1c9dc47be0 1116 main/binary-amd64/Packages
- fc010d0871490ef5985d1f77eefbeb91a945c1e5 713 main/binary-amd64/Packages.gz
+ b1855b798907a6e957a8c4fe835eb0c688ec8bb5 1116 main/binary-amd64/Packages
+ a6029e114b80d3995aa923ba2e20ab4efc8e9ed3 712 main/binary-amd64/Packages.gz
  ec26e42e850311a7b7eccdebeaa26816b6d15570 102 main/binary-amd64/Release
 SHA256:
- 150662e376c89900966b70e027b360c3980640f8d4c7a3a2dc591e6e33eb34bc 1116 main/binary-amd64/Packages
- db6a605c28f62fc3dc317efa0e07c4f884523b0fc3de5c94d6495bcbb8853788 713 main/binary-amd64/Packages.gz
+ 6c6cf7c0c511d4e2a61d0e28c9ff45f3aa7ef6bf1db0e6e0539dc071074c180e 1116 main/binary-amd64/Packages
+ 783fdc80116f3476517fbd8a5cdd1b8cdab7d248f995d5d3a78b5b7d05177960 712 main/binary-amd64/Packages.gz
  651d47a250d7e786ee4ed9a3c008b25dfdfbc4b8dc54473881aba47fd8da2ca6 102 main/binary-amd64/Release
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEVrg/WddF3rysy1ITw32UMnAhGikFAmjXW0YACgkQw32UMnAh
-Gil6OA/9Edhtr+FMNqfVwjfkQQHfX5e7iFH9dBvytxupoH+Ibh7meLdZLmSyX6qa
-CfnDPHtxjlQxklsOyA7qxsOaBWw3pibde0ZmeBb2Q/HBr3n0fJXUV7W0sV56uWzf
-cwmUTrk3ZqFN3UtcKN1GNdF3wuf0OpasHv9psaMmmUlC9nq69pRWLXQVqjKzgSMe
-J/lr7HudJACOkzwgHkuV5EICJz8nWbUHkJpSvug/wFFX7dr8eC30gC+5l+xb8mjG
-0oW0OTZ2pyQLR8KcVpWaWnr3YLsGn1ya0qyhOI22mQSZ8nIhzbbX7b81bdH534ys
-4xxdEjNNfkl0b10ku7BeRqfk/cW9/ROnYLjcoygdpnRYb+odmSWxjrj02irIP4it
-hsUMnemDPTX43Kh+rbVtFzwifou7sPdFcnIz0pAXv4Xnp+CLRk40yRzKtsn8XMM2
-5fpov2qKF4lKLh6N07/Hf8PiCgIIDolqQEDXuAjNXur7GsCGLTRzFjr5cYl8yK9c
-RWaGear8367kpCq2TGsYVj8/cawBDQF0tbKgBoZIP9lvpD6WXvBVwwoH+um1ko37
-LBL2+5l0vM2Ke7lbFn9fGMQckaz6nzlIlk6npyg4ZF/A9xToH/9HMm4+QWmMMbMr
-m0shhCTGBdnorLKmuzInMWPTMG03oq9e5LmCxZxecjWHLYSt2/A=
-=dfch
+iQIzBAEBCgAdFiEEVrg/WddF3rysy1ITw32UMnAhGikFAmjYF0MACgkQw32UMnAh
+GikpRQ//eqkvljqaLZ8BwbvAoIavDvo7BRVK7crFKz9KkNIGHRjJfCtcBT6IlzoS
+BF9tt1eMlXsQscXHnUzb2HI0uA4S4uZ6KMX7ulC8bgmwA3cQTnof3AWzyyiT5JkV
+/GtPQ+AgGzSlZP6EnCZcwidenqpfN6v3aD3uHf8V8ufH/zCwP4hQM/+kBa6qwwKE
+nhJvAUi7OFgODU8yWZ0UPexzP9TIyU5INQNbv64bHALN/n2k5mrrPyHyBVhSMWZj
+auUp0mU6NYjmjn2m/5VC0Z5U6HYMR8SE1lPZAEcBY34XondH5MNL5e4vNnVufZBz
+mV5VnmISXvLX+DF7NSMoH8ki5TobYJ5smUK7rQvvHlYS2eJ/pSnUvmnIO0NYcRae
+c/lh1EoFvCPsBG4Ggaw55x1Mg3cesqpD2n1TM8vpWMQH4RGSR3wNprd4Bf6m36rT
+WKp7NR9bbQUT1oVembDxqvhiquRN8wIgtUeWItKb37I7igUeFW8Wu6V/W/XpWAmt
+yrPJTx+Ef4I3I6JU8aCMPN8XrYNz5RSV3YjkB4Mdj+2fp4GnZlKT1lcLEuLlSObi
+Z6/PhPP3Z1MNce9blpXqyaNIjpawp2akYaZHDZKVnz9c5LAxqciT/PROwPLkxk4O
+dF9iNHh0cPCkvFHuJxbq18dgE42BfN8JFs4VQeeeu64PsELi4cg=
+=UMLr
 -----END PGP SIGNATURE-----
