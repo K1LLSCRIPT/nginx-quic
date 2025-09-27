@@ -1,0 +1,58 @@
+.TH nginx 8 "September 2025" "nginx-quic 1.29.1" "System Administration"
+.SH NAME
+nginx \- high performance web server with QUIC and HTTP/3
+.SH SYNOPSIS
+.B nginx
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+Nginx is a high performance web server, reverse proxy, and mail proxy
+designed for maximum efficiency and scalability.
+
+This build includes QUIC/HTTP3 support and extra modules:
+.PP
+\- Brotli compression (ngx_brotli)
+.br
+\- Zstandard compression (zstd-nginx-module)
+.br
+\- Headers More (headers-more-nginx-module)
+.br
+\- NJS (nginx JavaScript engine)
+.br
+\- QuickJS runtime integration
+.br
+
+.SH OPTIONS
+.TP
+.B \-?, \-h
+Show basic help.
+.TP
+.B \-v
+Show nginx version.
+.TP
+.B \-V
+Show nginx version and build options.
+.TP
+.B \-t
+Test configuration and exit.
+.TP
+.B \-T
+Test configuration, dump it and exit.
+.TP
+.B \-s signal
+Send signal to a master process: stop, quit, reopen, reload.
+.TP
+.B \-p prefix
+Set nginx path prefix (default: /etc/nginx).
+.TP
+.B \-c filename
+Set configuration file (default: /etc/nginx/nginx.conf).
+.TP
+.B \-g directives
+Set global directives outside configuration file.
+
+.SH SEE ALSO
+nginx.conf(5)
+
+.SH AUTHOR
+This custom build is maintained by K1LLSCRIPT <https://github.com/K1LLSCRIPT/nginx-quic>
+and based on the official nginx.org sources.

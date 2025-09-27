@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    remove)
+        systemctl stop nginx || true
+        systemctl disable nginx || true
+        ;;
+    purge)
+        rm -rf /var/cache/nginx
+        rm -rf /var/log/nginx
+        ;;
+esac
+
+exit 0

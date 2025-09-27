@@ -1,0 +1,4 @@
+objs/nginx                    usr/sbin/
+objs/*.so                     usr/lib/nginx/modules/
+debian/nginx.service          usr/lib/systemd/system/
+debian/nginx.8                usr/share/man/man8/

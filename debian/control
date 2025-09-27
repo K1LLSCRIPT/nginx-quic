@@ -1,0 +1,43 @@
+Source: nginx-quic
+Section: httpd
+Priority: optional
+Maintainer: K1LLSCRIPT <alex@icona.one>
+Build-Depends: debhelper-compat (= 13),
+               devscripts,
+               build-essential,
+               fakeroot,
+               quilt,
+               zlib1g-dev,
+               libpcre2-dev,
+               libssl-dev,
+               libgd-dev,
+               libperl-dev,
+               libxslt1-dev,
+               libxml2-dev,
+               cmake,
+               git,
+               curl,
+               wget,
+               reprepro,
+               gnupg,
+               libgeoip-dev
+Standards-Version: 4.5.0
+Homepage: https://nginx.org
+Vcs-Git: https://github.com/K1LLSCRIPT/nginx-quic.git
+Vcs-Browser: https://github.com/K1LLSCRIPT/nginx-quic
+
+Package: nginx-quic
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, lsb-base, systemd
+Conflicts: nginx
+Replaces: nginx
+Description: High-performance NGINX with QUIC/HTTP3 and extra modules
+ NGINX built from latest sources with QUIC and HTTP/3 support,
+ packaged as a Debian .deb for easy installation and updates.
+ .
+ Extra modules included:
+  - ngx_brotli (Google Brotli compression)
+  - headers-more (OpenResty headers-more module)
+  - njs (NGINX JavaScript)
+  - zstd (Zstandard compression)
+  - QuickJS runtime

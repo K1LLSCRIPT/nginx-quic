@@ -1,0 +1,75 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+  configure)
+    if ! getent group nginx >/dev/null; then
+      addgroup --system nginx
+    fi
+
+    if ! id -u nginx >/dev/null 2>&1; then
+      adduser --system --ingroup nginx \
+        --no-create-home --disabled-login \
+        --shell /usr/sbin/nologin \
+        --home /nonexistent nginx
+    fi
+
+    for dir in /var/log/nginx /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp \
+               /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp \
+               /var/www /var/www/html /etc/nginx/conf.d /etc/nginx/modules-enabled; do
+      mkdir -p "$dir"
+      chown -R nginx:nginx "$dir"
+    done
+
+    if [ ! -f /var/www/html/index.html ]; then
+      echo "<h1>Welcome to nginx-quic 🚀</h1>" > /var/www/html/index.html
+    fi
+
+    chmod 750 /var/log/nginx
+    chmod 750 /var/cache/nginx
+    chmod 755 /var/www/html
+
+    chown -R root:root /etc/nginx
+    chmod -R 755 /etc/nginx
+
+    if [ ! -f /etc/nginx/nginx.conf ]; then
+    cat > /etc/nginx/nginx.conf <<'EOF'
+user nginx;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+    worker_connections 1024;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+    keepalive_timeout 65;
+
+    access_log  /var/log/nginx/access.log;
+    error_log   /var/log/nginx/error.log;
+
+    client_body_temp_path /var/cache/nginx/client_temp;
+    proxy_temp_path       /var/cache/nginx/proxy_temp;
+    fastcgi_temp_path     /var/cache/nginx/fastcgi_temp;
+    uwsgi_temp_path       /var/cache/nginx/uwsgi_temp;
+    scgi_temp_path        /var/cache/nginx/scgi_temp;
+
+    include /etc/nginx/conf.d/*.conf;
+}
+EOF
+    fi
+
+    systemctl daemon-reload || true
+    systemctl enable nginx  || true
+    systemctl restart nginx || true
+
+  ;;
+esac
+
+#DEBHELPER#
+exit 0

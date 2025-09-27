@@ -1,0 +1,169 @@
+name: Build nginx-quic
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install build deps
+        run: |
+          apt update
+          apt install -y ca-certificates build-essential devscripts \
+                         build-essential fakeroot quilt lintian curl \
+                         zlib1g-dev libpcre2-dev libssl-dev libgd-dev \
+                         libperl-dev libxslt1-dev libxml2-dev elfutils \
+                         reprepro gnupg debhelper libgeoip-dev sudo git \
+                         cmake git dwz wget systemd adduser lsb-base
+
+      - name: Prepare sources
+        run: |
+          mkdir -p src
+          cd src || true
+
+          # Brotli
+          git clone --recurse-submodules -j8 https://github.com/google/ngx_brotli
+
+          # quickjs
+          git clone https://github.com/bellard/quickjs
+          cd quickjs
+          CFLAGS='-fPIC' make libquickjs.a
+          make
+          sudo make install PREFIX=/usr
+          cd ..
+
+          # njs
+          git clone https://github.com/nginx/njs.git
+          cd njs && ./configure
+          make
+          cd ..
+
+          # zstd
+          git clone https://github.com/tokers/zstd-nginx-module.git
+
+          # headers-more (latest tag)
+          HDRS_TAG=$(git ls-remote --tags https://github.com/openresty/headers-more-nginx-module.git \
+            | awk -F/ '{print $3}' | grep -E '^v[0-9]+' | sort -V | tail -n1)
+          echo "Picked headers-more-nginx-module tag: $HDRS_TAG"
+          wget -q "https://github.com/openresty/headers-more-nginx-module/archive/refs/tags/${HDRS_TAG}.tar.gz" -O headers-more.tar.gz
+          tar -xzf headers-more.tar.gz
+
+          # OpenSSL (latest stable)
+          OPENSSL_TAR=$(
+            curl -fsSL https://www.openssl.org/source/ \
+              | grep -oE 'openssl-[0-9]+\.[0-9]+\.[0-9]+\.tar\.gz' \
+              | sort -V | tail -n1
+          )
+          echo "Picked OpenSSL tarball: $OPENSSL_TAR"
+          wget -q "https://www.openssl.org/source/${OPENSSL_TAR}"
+          tar -xzf "$OPENSSL_TAR"
+
+      - name: Download nginx source
+        run: |
+          NGINX_TAR=$(
+            curl -fsSL https://nginx.org/download/ \
+              | grep -oE 'nginx-[0-9]+\.[0-9]+\.[0-9]+\.tar\.gz' \
+              | sort -V | tail -n1
+          )
+          echo "Picked nginx tarball: $NGINX_TAR"
+          wget -q "https://nginx.org/download/${NGINX_TAR}"
+          tar -xzf "$NGINX_TAR"
+          mv "${NGINX_TAR%%.tar.gz}" nginx-quic
+          cp -r debian nginx-quic/
+
+      - name: Ensure src exists
+        run: mkdir -p src
+
+      - name: Cache third-party sources
+        uses: actions/cache@v4
+        with:
+          path: |
+            src/quickjs
+            src/njs
+            src/ngx_brotli
+            src/zstd-nginx-module
+          key: thirdparty-${{ runner.os }}-v2-${{ hashFiles('.github/workflows/build.yml') }}
+          restore-keys: |
+            thirdparty-${{ runner.os }}-
+
+      - name: Install ccache
+        run: sudo apt install -y ccache
+
+      - name: Setup ccache
+        run: |
+          echo 'export PATH="/usr/lib/ccache:$PATH"' >> $GITHUB_ENV
+          echo 'export CC="ccache gcc"' >> $GITHUB_ENV
+          echo 'export CXX="ccache g++"' >> $GITHUB_ENV
+
+      - name: Ensure ccache dir exists
+        run: mkdir -p ~/.cache/ccache
+
+      - name: Cache ccache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: ccache-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ runner.os }}-
+
+      - name: Update changelog
+        run: |
+          VERSION=$(curl -fsSL https://nginx.org/download/ \
+            | grep -oE 'nginx-[0-9]+\.[0-9]+\.[0-9]+\.tar\.gz' \
+            | sort -V | tail -n1 | sed 's/nginx-//;s/.tar.gz//')
+
+          dch --newversion ${VERSION}-1 \
+              --distribution unstable \
+              "Automated build from CI"
+
+      - name: Build package
+        run: |
+          cd nginx-quic
+          export DEB_BUILD_OPTIONS="parallel=$(nproc)"
+          export CFLAGS="-O2 -pipe -fPIC"
+          export CXXFLAGS="-O2 -pipe -fPIC"
+          export LDFLAGS="-Wl,-s"
+          dpkg-buildpackage -b -uc -us
+
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+          gpg --list-secret-keys --keyid-format LONG
+
+      - name: Create APT repo
+        run: |
+          mkdir -p repo/conf repo/incoming
+          cat > repo/conf/distributions <<EOF
+          Codename: trixie
+          Components: main
+          Architectures: amd64
+          Origin: nginx-quic
+          Label: nginx-quic
+          Suite: stable
+          Version: 1.0
+          SignWith: ${{ secrets.GPG_KEY_ID }}
+          EOF
+
+          reprepro -b repo includedeb trixie ./nginx-quic_*.deb
+
+      - name: Add public key
+        run: |
+          gpg --armor --export ${{ secrets.GPG_KEY_ID }} > repo/public.key
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          publish_branch: gh-pages
+          publish_dir: repo

@@ -1,0 +1,5 @@
+nginx-quic (1.29.1-1) unstable; urgency=low
+
+  * Initial release with custom modules.
+
+ -- K1LLSCRIPT <alex@icona.one>  Fri, 26 Sep 2025 12:00:00 +0000
