@@ -59,8 +59,8 @@ sudo apt install nginx-quic
 sudo systemctl enable --now nginx
 sudo systemctl status nginx
 ```
----
 
+---
 
 ## 🌐 Quick Start with HTTP/3
 After installing `nginx-quic` from the custom APT repo, you can quickly spin up a server with **QUIC/HTTP3** support.
@@ -117,7 +117,7 @@ server {
         default_type  text/plain;
         add_header    alt-svc 'h3=":443"; ma=86400' always;
         add_header    X-QUIC  $http3 always;
-        return 200;
+        return 200    "ok\n";
     }
 }
 ```
@@ -140,7 +140,7 @@ With `curl`:
 curl -vk --http3 https://example.com/test
 ```
 Expected output:
-```nginx
+```bash
 ok
 ```
 Or open **Chrome/Firefox/Edge** and check that **HTTP/3** is negotiated (**DevTools** → **Network** → **Protocol** = **h3**).
@@ -158,7 +158,7 @@ If you fork this project and want to build your own repo, you must **generate yo
 gpg --full-generate-key
 ```
 
-- **Type:** `RSA` and `RSA`
+- **Type:** `RSA`
 - **Size:** `4096`
 - **Expiration:** your choice (or never)
 - **Name/Email:** use your GitHub identity
@@ -184,23 +184,8 @@ gpg --armor --export-secret-keys YOUR_KEYID > private.key
 ### 3. Add GitHub secrets
 Go to **Settings** → **Secrets and variables** → **Actions** in your repo:
 - `GPG_PRIVATE_KEY` → contents of `private.key`
-- `GPG_PASSPHRASE` → the passphrase you set
+- `GPG_KEY_ID` → YOUR_KEYID
 - `GH_PAT` → **GitHub Personal Access Token** (with `repo` scope)
-
-### 4. Update workflow
-The workflow imports the key:
-```yaml
-- name: Import GPG key
-  run: |
-    echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-```
-
-And in `repo/conf/distributions`:
-```makefile
-SignWith: YOUR_KEYID
-```
-
-Replace `YOUR_KEYID` with your actual GPG key ID (`gpg --list-keys`).
 
 ### 5. Distribute the public key
 After build, `public.key` is published in your repo.
@@ -213,19 +198,18 @@ curl -fsSL https://<your-username>.github.io/nginx-quic/public.key | \
 ---
 
 ## ✅ TL;DR for forkers
-**1)** Generate GPG key  
-**2)** Export public/private  
-**3)** Add private key + passphrase to secrets  
-**4)** Add GitHub PAT  
-**5)** Replace `SignWith` in workflow  
-**6)** Done → you’ve got your own signed APT repo 🎉  
+- Generate GPG key  
+- Export public/private  
+- Add GPG private key + YOUR_KEYID to GitHub secrets  
+- Add GitHub Personal Access Token  
+- Done → you’ve got your own signed APT repo 🎉  
 
 ---
 
 ## ⚙️ Requirements
 - **Debian 13 (trixie)**  
 - **amd64** architecture  
-- Tested on `systemd` environments  
+- **systemd** environment  
 
 ---
 
