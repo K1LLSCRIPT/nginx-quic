@@ -14,19 +14,34 @@ case "$1" in
         --home /nonexistent nginx
     fi
 
-    for dir in /var/log/nginx /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp \
+    for dir in /var/log/nginx /var/cache/nginx /var/cache/nginx/client_temp /var/cache/nginx/proxy_temp \
                /var/cache/nginx/fastcgi_temp /var/cache/nginx/uwsgi_temp /var/cache/nginx/scgi_temp \
                /var/www /var/www/html /etc/nginx/conf.d /etc/nginx/modules-enabled; do
       mkdir -p "$dir"
       chown -R nginx:nginx "$dir"
     done
 
+    find /var/cache/nginx -type d -exec chown nginx:nginx {} \;
+
+    for f in /etc/nginx/*.default; do
+      [ -e "$f" ] || continue
+      target="${f%.default}"
+      if [ ! -e "$target" ]; then
+        mv "$f" "$target"
+      else
+        rm -f "$f"
+      fi
+    done
+    
+    if [ ! -L /etc/nginx/modules ]; then
+      ln -sf /usr/lib/nginx/modules /etc/nginx/modules
+    fi
+
     if [ ! -f /var/www/html/index.html ]; then
       echo "<h1>Welcome to nginx-quic 🚀</h1>" > /var/www/html/index.html
     fi
 
     chmod 750 /var/log/nginx
-    chmod 750 /var/cache/nginx
     chmod 755 /var/www/html
 
     chown -R root:root /etc/nginx
