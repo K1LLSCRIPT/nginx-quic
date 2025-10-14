@@ -2,7 +2,7 @@ Package: nginx-quic
 Version: 1.29.1-1
 Architecture: amd64
 Maintainer: K1LLSCRIPT <alex@icona.one>
-Installed-Size: 11643
+Installed-Size: 11774
 Depends: libbrotli1 (>= 0.6.0), libc6 (>= 2.38), libcrypt1 (>= 1:4.1.0), libgd3 (>= 2.1.0~alpha~), libgeoip1t64 (>= 1.6.12), libpcre2-8-0 (>= 10.32), libperl5.40 (>= 5.40.0), libxml2 (>= 2.7.4), libxslt1.1 (>= 1.1.25), zlib1g (>= 1:1.1.4), adduser, lsb-base, systemd
 Conflicts: nginx
 Replaces: nginx
@@ -10,10 +10,10 @@ Homepage: https://nginx.org
 Priority: optional
 Section: httpd
 Filename: pool/main/n/nginx-quic/nginx-quic_1.29.1-1_amd64.deb
-Size: 3705676
-SHA256: e78bd2856fda83d85c7c33115dfd2f6c274f258af64ed9bbf07f72e703dfd1a2
-SHA1: d499e02171227f6d1af15d1f51ce7fa1c48a7994
-MD5sum: 01d563d5ca0167a1dfd59c10904b7db2
+Size: 3747036
+SHA256: 1f7c8f2ac1b78910b002c024dc42f0af0498ee4030d8049da99e55e379e4f7a7
+SHA1: ccc28a789a49db821f47932f4759d67135f52bbe
+MD5sum: 9a604d041de7306ea6a73439ca7bae29
 Description: High-performance NGINX with QUIC/HTTP3 and extra modules
  NGINX built from latest sources with QUIC and HTTP/3 support,
  packaged as a Debian .deb for easy installation and updates.

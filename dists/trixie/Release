@@ -3,18 +3,18 @@ Label: nginx-quic
 Suite: stable
 Codename: trixie
 Version: 1.0
-Date: Sat, 27 Sep 2025 16:56:35 UTC
+Date: Tue, 14 Oct 2025 14:01:17 UTC
 Architectures: amd64
 Components: main
 MD5Sum:
- 6e32ef40359acd01aded4d18b0019a93 1116 main/binary-amd64/Packages
- dc22af401c67262806af6490736da819 712 main/binary-amd64/Packages.gz
+ 60df060a750305b7568332ffdb10c958 1116 main/binary-amd64/Packages
+ 31d1d80a368715e4500a4083f0b985c3 713 main/binary-amd64/Packages.gz
  db21dc456bf3a5346d1234db0090037f 102 main/binary-amd64/Release
 SHA1:
- b1855b798907a6e957a8c4fe835eb0c688ec8bb5 1116 main/binary-amd64/Packages
- a6029e114b80d3995aa923ba2e20ab4efc8e9ed3 712 main/binary-amd64/Packages.gz
+ adee8c0a01c395b731ca37cd060541a333051b46 1116 main/binary-amd64/Packages
+ 7f84145b3e6ecd6028395e4908420628d0cf2bcd 713 main/binary-amd64/Packages.gz
  ec26e42e850311a7b7eccdebeaa26816b6d15570 102 main/binary-amd64/Release
 SHA256:
- 6c6cf7c0c511d4e2a61d0e28c9ff45f3aa7ef6bf1db0e6e0539dc071074c180e 1116 main/binary-amd64/Packages
- 783fdc80116f3476517fbd8a5cdd1b8cdab7d248f995d5d3a78b5b7d05177960 712 main/binary-amd64/Packages.gz
+ 893aa1ee64fdb8c27889f4d561c475a45736843bed734e34263fd631c4600ea3 1116 main/binary-amd64/Packages
+ e821e3acc26f3e5168adaf7e967c3e7f8ad7c9e26eb02f246f1587368fc2cfb1 713 main/binary-amd64/Packages.gz
  651d47a250d7e786ee4ed9a3c008b25dfdfbc4b8dc54473881aba47fd8da2ca6 102 main/binary-amd64/Release
