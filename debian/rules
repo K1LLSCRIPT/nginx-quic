@@ -45,8 +45,8 @@ override_dh_auto_configure:
 	  --with-http_xslt_module=dynamic \
 	  --with-http_image_filter_module=dynamic \
 	  --with-http_geoip_module=dynamic \
-          --with-http_perl_module=dynamic \
-          --with-perl_modules_path=/usr/share/perl5 \
+	  --with-http_perl_module=dynamic \
+	  --with-perl_modules_path=/usr/share/perl5 \
 	  --with-threads \
 	  --with-stream \
 	  --with-stream_ssl_module \
@@ -66,8 +66,8 @@ override_dh_auto_configure:
 	  --add-module=$$HEADERS_DIR \
 	  --add-module=../src/njs/nginx \
 	  --add-module=../src/zstd-nginx-module \
-          --with-cc-opt='-g -O2 -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -I /usr/src/quickjs' \
-          --with-ld-opt='-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -L /usr/src/quickjs'
+	  --with-cc-opt='-g -O2 -flto=auto -ffat-lto-objects -flto=auto -ffat-lto-objects -I /usr/src/quickjs' \
+	  --with-ld-opt='-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -flto=auto -L /usr/src/quickjs'
 
 override_dh_auto_build:
 	dh_auto_build
